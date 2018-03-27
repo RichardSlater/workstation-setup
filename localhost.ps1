@@ -16,6 +16,7 @@ Configuration WorkstationConfig
         "jq"
         "7zip"
         "sysinternals"
+        "docker"
       )
       DependsOn = "[cChocoInstaller]installChoco"
     }
