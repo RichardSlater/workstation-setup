@@ -18,6 +18,7 @@ Configuration WorkstationConfig
         "sysinternals"
         "docker"
         "ruby"
+        "nodejs.install"
       )
       DependsOn = "[cChocoInstaller]installChoco"
     }
