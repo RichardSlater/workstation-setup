@@ -17,6 +17,7 @@ Configuration WorkstationConfig
         "7zip"
         "sysinternals"
         "docker"
+        "ruby"
       )
       DependsOn = "[cChocoInstaller]installChoco"
     }
