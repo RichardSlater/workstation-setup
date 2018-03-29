@@ -19,6 +19,7 @@ Configuration WorkstationConfig
         "docker"
         "ruby"
         "nodejs.install"
+        "python2"
       )
       DependsOn = "[cChocoInstaller]installChoco"
     }
