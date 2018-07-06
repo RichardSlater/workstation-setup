@@ -8,6 +8,8 @@ $PackagesToInstall = @(
   "ruby"
   "nodejs.install"
   "python2"
+  "golang"
+  "gpg4win"
 )
 
 Configuration WorkstationConfig
