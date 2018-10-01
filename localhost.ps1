@@ -10,6 +10,17 @@ $PackagesToInstall = @(
   "python2"
   "golang"
   "gpg4win"
+  "inkscape"
+  "paint.net"
+  "virtualbox"
+  "azure-cli"
+  "charles4"
+  "linqpad"
+  "beyondcompare"
+  "balsamiqmockups3"
+  "kubernetes-cli"
+  "minikube"
+  "kubernetes-helm"
 )
 
 Configuration WorkstationConfig
