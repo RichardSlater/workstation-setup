@@ -23,6 +23,13 @@ $PackagesToInstall = @(
   "kubernetes-helm"
 )
 
+$gpgBinRoot = "C:\Program Files\Git\usr\bin\"
+$gbgBinExecutablesToRemove = @(
+  "gpg.exe"
+  "ssh.exe"
+)
+
+
 Configuration WorkstationConfig
 {
   Import-DscResource -Module cChoco
@@ -42,6 +49,14 @@ Configuration WorkstationConfig
          Name = $Package
          AutoUpgrade = $True
          DependsOn = '[cChocoInstaller]installChoco'
+      }
+    }
+
+    foreach ($File in $gbgBinExecutablesToRemove) {
+      File "Remove$File"
+      {
+          Ensure = "Absent"
+          DestinationPath = "$gpgBinRoot\$File"
       }
     }
   }
