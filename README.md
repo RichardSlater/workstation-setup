@@ -10,4 +10,4 @@ The DSC depends upon the [cChoco][cchoco] package which can be installed as foll
 
   [cchoco]: https://www.powershellgallery.com/packages/cChoco
 
-Both the above command and the execution of desired state configuration must be executed as an administrator.
+Both the above command and the execution of desired state configuration must be executed as an administrator!
