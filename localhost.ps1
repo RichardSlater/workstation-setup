@@ -21,6 +21,9 @@ $PackagesToInstall = @(
   "kubernetes-cli"
   "minikube"
   "kubernetes-helm"
+  "vagrant"
+  "packer"
+  "terraform"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
