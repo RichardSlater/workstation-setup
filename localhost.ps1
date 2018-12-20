@@ -24,6 +24,7 @@ $PackagesToInstall = @(
   "vagrant"
   "packer"
   "terraform"
+  "gcloudsdk"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
