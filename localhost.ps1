@@ -26,6 +26,7 @@ $PackagesToInstall = @(
   "terraform"
   "gcloudsdk"
   "poshgit"
+  "firacode"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
