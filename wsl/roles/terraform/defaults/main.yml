@@ -1,0 +1,4 @@
+---
+
+terraform_version: "0.9.6"
+terraform_install_dir: "/usr/local/share/terraform/{{ terraform_version }}"

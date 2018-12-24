@@ -1,0 +1,47 @@
+---
+
+- name: Load "{{ ansible_system }} OS family variables.
+  include_vars: "{{ ansible_system }}.yml"
+
+- name: Ensure required packages are available.
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ terraform_dep_packages }}"
+
+
+- name: Ensure install directory is available.
+  file:
+    path: "{{ terraform_install_dir }}"
+    mode: 0755
+    state: directory
+
+# Do not work on macos because of issues with get_url module:
+#  TASK [ansible-role-terraform : Download terraform 0.10.1 binary.] **************
+#fatal: [localhost]: FAILED! => {"changed": false, "failed": true, "msg": "Failed to validate the SSL certificate for releases.hashicorp.com:443. Make sure your managed systems have a valid CA certificate installed. You can use validate_certs=False if you do not need to confirm the servers identity but this is unsafe and not recommended. Paths checked for this platform: /etc/ssl/certs, /etc/ansible, /usr/local/etc/openssl"}
+
+# - name: "Download terraform {{ terraform_version }} binary."
+#   unarchive:
+#     copy: no
+#     src:  "{{ terraform_download_url }}"
+#     dest: "{{ terraform_install_dir }}"
+#     creates: "{{ terraform_install_dir }}/terraform"
+#     mode: 0755
+
+- name: "Download terraform {{ terraform_version }} binary."
+  command: wget {{ terraform_download_url }} --directory-prefix=/tmp/
+
+- name: "Unarchive terraform {{ terraform_version }} zip."
+  unarchive:
+    copy: no
+    src:  "/tmp/terraform_{{ terraform_version }}_{{ ansible_system | lower }}_amd64.zip"
+    dest: "{{ terraform_install_dir }}"
+    creates: "{{ terraform_install_dir }}/terraform"
+    mode: 0755
+
+- name: Set symlink to /usr/local/bin/terraform.
+  file:
+    state: link
+    src: "/usr/local/share/terraform/{{ terraform_version }}/terraform"
+    dest: "/usr/local/bin/terraform"

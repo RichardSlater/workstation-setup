@@ -1,0 +1,26 @@
+---
+- name: configure WSL
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars:
+    terraform_version: "0.11.11"
+  tasks:
+  - name: ensure aptitude is installed
+    command: apt-get -y install aptitude warn=False
+
+  - name: update apt
+    apt:
+      update_cache: yes
+      upgrade: safe
+  
+  - name: upgrade packages
+    apt: upgrade=yes
+
+  - name: Install list of packages
+    apt: 
+      name: [jq, vim, curl, unzip]
+      state: present
+  
+  roles:
+    - terraform
