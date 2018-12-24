@@ -17,20 +17,8 @@
     mode: 0755
     state: directory
 
-# Do not work on macos because of issues with get_url module:
-#  TASK [ansible-role-terraform : Download terraform 0.10.1 binary.] **************
-#fatal: [localhost]: FAILED! => {"changed": false, "failed": true, "msg": "Failed to validate the SSL certificate for releases.hashicorp.com:443. Make sure your managed systems have a valid CA certificate installed. You can use validate_certs=False if you do not need to confirm the servers identity but this is unsafe and not recommended. Paths checked for this platform: /etc/ssl/certs, /etc/ansible, /usr/local/etc/openssl"}
-
-# - name: "Download terraform {{ terraform_version }} binary."
-#   unarchive:
-#     copy: no
-#     src:  "{{ terraform_download_url }}"
-#     dest: "{{ terraform_install_dir }}"
-#     creates: "{{ terraform_install_dir }}/terraform"
-#     mode: 0755
-
 - name: "Download terraform {{ terraform_version }} binary."
-  command: wget {{ terraform_download_url }} --directory-prefix=/tmp/
+  command: wget {{ terraform_download_url }} --directory-prefix=/tmp/ warn=False
 
 - name: "Unarchive terraform {{ terraform_version }} zip."
   unarchive:
