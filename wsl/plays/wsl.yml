@@ -14,30 +14,30 @@
 
   - name: ensure aptitude is installed
     command: apt-get -y install aptitude warn=False
-    when: aptitude_installed.rc == 0
+    when: aptitude_installed is success
 
   - name: update apt
     apt:
       update_cache: yes
       upgrade: safe
     register: task_result
-    until: task_result.rc == 0
+    until: task_result is success
     retries: 3
     delay: 10
 
   - name: upgrade packages
     apt: upgrade=yes
     register: task_result
-    until: task_result.rc == 0
+    until: task_result is success
     retries: 3
     delay: 10
 
   - name: Install list of packages
     apt:
-      name: [jq, vim, curl, unzip, dnsutils]
+      name: [jq, vim, curl, unzip, dnsutils, whois]
       state: present
     register: task_result
-    until: task_result.rc == 0
+    until: task_result is success
     retries: 3
     delay: 10
 
