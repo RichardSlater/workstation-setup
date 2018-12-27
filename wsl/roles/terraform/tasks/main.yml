@@ -3,13 +3,18 @@
 - name: Load "{{ ansible_system }} OS family variables.
   include_vars: "{{ ansible_system }}.yml"
 
+- name: Check Terraform version
+  shell: "terraform --version | head -n1 | grep {{ terraform_version }}"
+  failed_when: False
+  changed_when: False
+  register: current_terraform_version
+
 - name: Ensure required packages are available.
   package:
     name: "{{ item }}"
     state: present
   with_items:
     - "{{ terraform_dep_packages }}"
-
 
 - name: Ensure install directory is available.
   file:
@@ -19,6 +24,7 @@
 
 - name: "Download terraform {{ terraform_version }} binary."
   command: wget {{ terraform_download_url }} --directory-prefix=/tmp/ warn=False
+  when: current_terraform_version.rc != 0
 
 - name: "Unarchive terraform {{ terraform_version }} zip."
   unarchive:
@@ -27,9 +33,15 @@
     dest: "{{ terraform_install_dir }}"
     creates: "{{ terraform_install_dir }}/terraform"
     mode: 0755
+  when: current_terraform_version.rc != 0
 
 - name: Set symlink to /usr/local/bin/terraform.
   file:
     state: link
     src: "/usr/local/share/terraform/{{ terraform_version }}/terraform"
     dest: "/usr/local/bin/terraform"
+  when: current_terraform_version.rc != 0
+
+- name: Installing Ansible Linting Package
+  pip:
+    name: ansible-lint

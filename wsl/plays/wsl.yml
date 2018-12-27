@@ -19,7 +19,7 @@
 
   - name: Install list of packages
     apt: 
-      name: [jq, vim, curl, unzip]
+      name: [jq, vim, curl, unzip, dnsutils]
       state: present
   
   roles:
