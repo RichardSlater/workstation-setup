@@ -1,4 +1,5 @@
-Install-Module -Name cChoco
+$VerbosePreference = "SilentlyContinue"
+Install-Module -Name cChoco -Force
 
 $PackagesToInstall = @(
   "jq"
@@ -27,6 +28,9 @@ $PackagesToInstall = @(
   "gcloudsdk"
   "poshgit"
   "firacode"
+  "keepass"
+  "keepass-yet-another-favicon-downloader"
+  "keepass-plugin-qrcodegen"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
@@ -35,9 +39,9 @@ $gbgBinExecutablesToRemove = @(
   "ssh.exe"
 )
 
-
 Configuration WorkstationConfig
 {
+  Import-DscResource -ModuleName PSDesiredStateConfiguration
   Import-DscResource -Module cChoco
   Node "localhost" {
     LocalConfigurationManager {
@@ -61,7 +65,7 @@ Configuration WorkstationConfig
     foreach ($File in $gbgBinExecutablesToRemove) {
       File "Remove$File"
       {
-          Ensure = "Absent"
+          Ensure = 'Absent'
           DestinationPath = "$gpgBinRoot\$File"
       }
     }
