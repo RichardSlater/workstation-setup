@@ -31,6 +31,9 @@ $PackagesToInstall = @(
   "keepass"
   "keepass-yet-another-favicon-downloader"
   "keepass-plugin-qrcodegen"
+  "audacity"
+  "audacity-lame"
+  "audacity-ffmpeg"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
