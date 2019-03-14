@@ -1,6 +1,10 @@
 $VerbosePreference = "SilentlyContinue"
 Install-Module -Name cChoco -Force
 
+# Avoid The WS-Management service cannot process the request. The computed response
+# packet size (1769346) exceeds the maximum envelope size that is allowed
+Set-WSManInstance -ValueSet @{MaxEnvelopeSizekb = "2048"} -ResourceURI winrm/config
+
 $PackagesToInstall = @(
   "jq"
   "7zip"
@@ -11,6 +15,7 @@ $PackagesToInstall = @(
   "python2"
   "golang"
   "gpg4win"
+  "keybase"
   "inkscape"
   "paint.net"
   "virtualbox"
@@ -34,6 +39,8 @@ $PackagesToInstall = @(
   "audacity"
   "audacity-lame"
   "audacity-ffmpeg"
+  "openshot"
+  "blender"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
