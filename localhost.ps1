@@ -15,7 +15,6 @@ $PackagesToInstall = @(
   "python2"
   "golang"
   "gpg4win"
-  "keybase"
   "inkscape"
   "paint.net"
   "virtualbox"
