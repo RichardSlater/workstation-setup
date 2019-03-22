@@ -1,11 +1,15 @@
+#Requires -RunAsAdministrator
+
 $VerbosePreference = "SilentlyContinue"
-Install-Module -Name cChoco -Force
 
 # Avoid The WS-Management service cannot process the request. The computed response
 # packet size (1769346) exceeds the maximum envelope size that is allowed
-Set-WSManInstance -ValueSet @{MaxEnvelopeSizekb = "2048"} -ResourceURI winrm/config
+Set-WSManInstance -ValueSet @{MaxEnvelopeSizekb = "4096"} -ResourceURI winrm/config
 
 $PackagesToInstall = @(
+  "dropbox"
+  "googlechrome"
+  "vscode"
   "jq"
   "7zip"
   "sysinternals"
@@ -40,6 +44,13 @@ $PackagesToInstall = @(
   "audacity-ffmpeg"
   "openshot"
   "blender"
+  "utorrent"
+  "yubico-authenticator"
+  "grammarly"
+  "franz"
+  "zoom"
+  "conemu"
+  "evernote"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
@@ -48,14 +59,23 @@ $gbgBinExecutablesToRemove = @(
   "ssh.exe"
 )
 
+$desktopShortcuts = Get-ChildItem C:\Users\Public\Desktop -Filter *.lnk
+
 Configuration WorkstationConfig
 {
   Import-DscResource -ModuleName PSDesiredStateConfiguration
+  Import-DscResource -Module xComputerManagement
   Import-DscResource -Module cChoco
   Node "localhost" {
     LocalConfigurationManager {
         DebugMode = 'ForceModuleImport'
     }
+
+    xComputer NewNameAndWorkgroup 
+    { 
+        Name          = "AML0059"
+        WorkGroupName = "AMIDO" 
+    } 
 
     cChocoInstaller installChoco {
       InstallDir = "c:\choco"
@@ -78,6 +98,49 @@ Configuration WorkstationConfig
           DestinationPath = "$gpgBinRoot\$File"
       }
     }
+
+    # only works for admin user
+    Registry ShowFileExtensions {
+      Ensure = "Present"
+      Key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+      ValueName = "HideFileExt"
+      ValueData = "0"
+      ValueType = "Dword"
+    }
+
+    foreach ($File in $desktopShortcuts.FullName) {
+      File "Remove$File"
+      {
+          Ensure = 'Absent'
+          DestinationPath = "$File"
+      }
+    }
+
+    File SourceDirectory {
+      Type = 'Directory'
+      DestinationPath = 'C:\source'
+      Ensure = "Present"
+    }
+
+    File AmidoSourceDirectory {
+      Type = 'Directory'
+      DestinationPath = 'C:\source\amido'
+      Ensure = "Present"
+    }
+
+    File PersonalSourceDirectory {
+      Type = 'Directory'
+      DestinationPath = 'C:\source\richardslater'
+      Ensure = "Present"
+    }
+
+    Service ServiceExample
+    {
+      Name        = "ssh-agent"
+      StartupType = "Automatic"
+      State       = "Running"
+    }
+
   }
 }
 
