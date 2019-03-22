@@ -51,6 +51,7 @@ $PackagesToInstall = @(
   "zoom"
   "conemu"
   "evernote"
+  "slack"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
@@ -108,11 +109,13 @@ Configuration WorkstationConfig
       ValueType = "Dword"
     }
 
-    foreach ($File in $desktopShortcuts.FullName) {
-      File "Remove$File"
-      {
-          Ensure = 'Absent'
-          DestinationPath = "$File"
+    if ($desktopShortcuts) {
+      foreach ($File in $desktopShortcuts.FullName) {
+        File "Remove$File"
+        {
+            Ensure = 'Absent'
+            DestinationPath = "$File"
+        }
       }
     }
 
