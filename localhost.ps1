@@ -20,7 +20,6 @@ $PackagesToInstall = @(
   "golang"
   "gpg4win"
   "inkscape"
-  "paint.net"
   "virtualbox"
   "azure-cli"
   "charles4"
