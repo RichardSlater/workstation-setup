@@ -60,13 +60,18 @@ $gbgBinExecutablesToRemove = @(
   "ssh.exe"
 )
 
-$desktopShortcuts = Get-ChildItem C:\Users\Public\Desktop -Filter *.lnk
+$publicDesktopShortcuts = Get-ChildItem C:\Users\Public\Desktop -Filter *.lnk
+$personalDesktopShortcuts = Get-ChildItem ([System.Environment]::GetFolderPath('Desktop')) -Filter *.lnk
+
+$vsCodeSettings = Join-Path $PSScriptRoot "vscode/settings.json"
 
 Configuration WorkstationConfig
 {
   Import-DscResource -ModuleName PSDesiredStateConfiguration
   Import-DscResource -Module xComputerManagement
   Import-DscResource -Module cChoco
+  Import-DscResource -ModuleName GraniResource
+
   Node "localhost" {
     LocalConfigurationManager {
         DebugMode = 'ForceModuleImport'
@@ -109,8 +114,18 @@ Configuration WorkstationConfig
       ValueType = "Dword"
     }
 
-    if ($desktopShortcuts) {
-      foreach ($File in $desktopShortcuts.FullName) {
+    if ($publicDesktopShortcuts) {
+      foreach ($File in $publicDesktopShortcuts.FullName) {
+        File "Remove$File"
+        {
+            Ensure = 'Absent'
+            DestinationPath = "$File"
+        }
+      }
+    }
+
+    if ($personalDesktopShortcuts) {
+      foreach ($File in $personalDesktopShortcuts.FullName) {
         File "Remove$File"
         {
             Ensure = 'Absent'
@@ -144,6 +159,22 @@ Configuration WorkstationConfig
       State       = "Running"
     }
 
+    # we skip this if we are running off removable media
+    if ($vsCodeSettings.ToLowerInvariant().StartsWith("c:")) {
+      $appData = [System.Environment]::GetFolderPath('ApplicationData')
+      $vsCodeSettingsTarget = Join-Path $appData "Code\User\settings.json"
+      File "RemoveUncontrolledFile"
+      {
+          Ensure = 'Absent'
+          DestinationPath = $vsCodeSettingsTarget
+      }
+      cSymbolicLink VSCodeSettings
+      {
+          SourcePath = $vsCodeSettingsTarget
+          DestinationPath = $vsCodeSettings
+          Ensure = "Present"
+      }
+    } 
   }
 }
 
