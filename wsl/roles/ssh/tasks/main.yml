@@ -1,0 +1,9 @@
+---
+
+- file:
+    path: /home/richardslater/.ssh
+    state: directory
+    owner: richardslater
+    group: richardslater
+    mode: 0700
+

@@ -42,6 +42,3 @@
     dest: "/usr/local/bin/terraform"
   when: current_terraform_version.rc != 0
 
-- name: Installing Ansible Linting Package
-  pip:
-    name: ansible-lint

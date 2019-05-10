@@ -4,7 +4,17 @@
   connection: local
   become: yes
   vars:
-    terraform_version: "0.11.11"
+    terraform_version: "0.11.13"
+    sudoers:
+      - richardslater
+
+  pre_tasks:
+  - name: Verify Ansible meets minimum version requirements.
+    assert:
+      that: "ansible_version.full is version_compare('2.7', '>=')"
+      msg: >
+        "You must update Ansible to at least 2.7 to use this playbook."
+
   tasks:
   - name: check if aptitude is installed
     shell: dpkg-query -W -f='${Status}' aptitude | grep 'install ok installed'
@@ -34,12 +44,23 @@
 
   - name: Install list of packages
     apt:
-      name: [jq, vim, curl, unzip, dnsutils, whois, sshpass]
+      name: [python, jq, vim, curl, unzip, dnsutils, whois, sshpass, git]
       state: present
     register: task_result
     until: task_result is success
     retries: 3
     delay: 10
 
+  - name: Installing Ansible Linting Package
+    pip:
+      name: ansible-lint
+
+  - name: Installing Powerline Shell
+    pip:
+      name: powerline-shell
+
   roles:
+    - bash
     - terraform
+    - wheel
+    - ssh
