@@ -1,0 +1,39 @@
+---
+
+- name: Install list of packages
+  apt:
+    name: [python, python-pip]
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
+
+- name: Installing Powerline Shell
+  pip:
+    name: powerline-shell
+
+- name: Create Config Directory 
+  file:
+    path: /home/richardslater/.config
+    state: directory
+    owner: richardslater
+    group: richardslater
+    mode: 0700
+
+- name: Create Powerline-Shell Config Directory
+  file:
+    path: /home/richardslater/.config/powerline-shell
+    state: directory
+    owner: richardslater
+    group: richardslater
+    mode: 0700
+
+- name: Deploy powerline-shell config
+  copy:
+    src: "./files/config.json"
+    dest: /home/richardslater/.config/powerline-shell/config.json
+    owner: richardslater
+    group: richardslater
+    mode: 0644
+  tags: bash

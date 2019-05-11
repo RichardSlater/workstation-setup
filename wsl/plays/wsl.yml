@@ -64,3 +64,4 @@
     - terraform
     - wheel
     - ssh
+    - powerline-shell

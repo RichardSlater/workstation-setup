@@ -1,0 +1,17 @@
+{
+    "segments": [
+      "hostname",
+      "cwd",
+      "root"
+    ],
+    "mode": "patched",
+    "hostname": {
+      "colorize": "true"
+    },
+    "cwd": {
+      "mode": "plain",
+      "max_depth": 1
+    },
+    "theme": "solarized_light"
+  }
+  
