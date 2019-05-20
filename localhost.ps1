@@ -51,6 +51,9 @@ $PackagesToInstall = @(
   "conemu"
   "evernote"
   "slack"
+  "androidstudio"
+  "dart-sdk"
+  "flutter"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
