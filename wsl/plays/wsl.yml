@@ -4,8 +4,10 @@
   connection: local
   become: yes
   vars:
-    terraform_version: "0.11.13"
+    terraform_version: "0.11.14"
     sudoers:
+      - richardslater
+    docker_users:
       - richardslater
 
   pre_tasks:
@@ -65,3 +67,4 @@
     - wheel
     - ssh
     - powerline-shell
+#    - docker # disabled for now, as currently dosn't work with recent versions of Moby/Docker-CE
