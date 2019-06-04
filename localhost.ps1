@@ -70,18 +70,24 @@ Configuration WorkstationConfig
 
   Node "localhost" {
     LocalConfigurationManager {
-        DebugMode = 'ForceModuleImport'
+      DebugMode = 'ForceModuleImport'
     }
 
     xComputer NewNameAndWorkgroup 
     { 
-        Name          = "AML0059"
-        WorkGroupName = "AMIDO" 
+      Name          = "AML0184"
+      WorkGroupName = "AMIDO" 
     } 
 
     cChocoInstaller installChoco {
       InstallDir = "c:\choco"
     }
+
+    Group AddSelfToDockerUsers {
+      GroupName = 'docker-users'
+      Ensure = 'Present'
+      MembersToInclude = 'AML0059\richa'
+    } # BUGGED in Win 10
 
     foreach ($Package in $PackagesToInstall) {
       cChocoPackageInstaller "install$Package"
@@ -124,8 +130,8 @@ Configuration WorkstationConfig
       foreach ($File in $personalDesktopShortcuts.FullName) {
         File "Remove$File"
         {
-            Ensure = 'Absent'
-            DestinationPath = "$File"
+          Ensure = 'Absent'
+          DestinationPath = "$File"
         }
       }
     }
@@ -148,7 +154,7 @@ Configuration WorkstationConfig
       Ensure = "Present"
     }
 
-    Service ServiceExample
+    Service SSHAgent
     {
       Name        = "ssh-agent"
       StartupType = "Automatic"
@@ -170,7 +176,7 @@ Configuration WorkstationConfig
           DestinationPath = $vsCodeSettings
           Ensure = "Present"
       }
-    } 
+    }
   }
 }
 
