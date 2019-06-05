@@ -2,6 +2,9 @@
 
 $VerbosePreference = "SilentlyContinue"
 
+# Avoid WSMan Firewall Rule warnings 
+Set-NetConnectionProfile -InterfaceAlias vEthernet* -NetworkCategory Private
+
 # Avoid The WS-Management service cannot process the request. The computed response
 # packet size (1769346) exceeds the maximum envelope size that is allowed
 Set-WSManInstance -ValueSet @{MaxEnvelopeSizekb = "4096"} -ResourceURI winrm/config
@@ -47,7 +50,12 @@ $PackagesToInstall = @(
   "evernote"
   "slack"
   "docker-desktop"
+  "jdk8"
+  "androidstudio"
   "intellijidea-ultimate"
+  "groovy"
+  "eclipse"
+  "stardock-fences"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
@@ -60,6 +68,7 @@ $publicDesktopShortcuts = Get-ChildItem C:\Users\Public\Desktop -Filter *.lnk
 $personalDesktopShortcuts = Get-ChildItem ([System.Environment]::GetFolderPath('Desktop')) -Filter *.lnk
 
 $vsCodeSettings = Join-Path $PSScriptRoot "vscode/settings.json"
+$conEmuSettings = Join-Path $PSScriptRoot "profile/ConEmu.xml"
 
 Configuration WorkstationConfig
 {
@@ -67,6 +76,7 @@ Configuration WorkstationConfig
   Import-DscResource -Module xComputerManagement
   Import-DscResource -Module cChoco
   Import-DscResource -ModuleName GraniResource
+  Import-DscResource -ModuleName DSCR_AppxPackage
 
   Node "localhost" {
     LocalConfigurationManager {
@@ -82,12 +92,6 @@ Configuration WorkstationConfig
     cChocoInstaller installChoco {
       InstallDir = "c:\choco"
     }
-
-    Group AddSelfToDockerUsers {
-      GroupName = 'docker-users'
-      Ensure = 'Present'
-      MembersToInclude = 'AML0059\richa'
-    } # BUGGED in Win 10
 
     foreach ($Package in $PackagesToInstall) {
       cChocoPackageInstaller "install$Package"
@@ -105,6 +109,11 @@ Configuration WorkstationConfig
           Ensure = 'Absent'
           DestinationPath = "$gpgBinRoot\$File"
       }
+    }
+
+    cAppxPackageSet AllUsersPackages {
+      Ensure = 'Absent'
+      Name = "king.com.CandyCrushSaga", "king.com.CandyCrushFriends"
     }
 
     # only works for admin user
@@ -165,15 +174,47 @@ Configuration WorkstationConfig
     if ($vsCodeSettings.ToLowerInvariant().StartsWith("c:")) {
       $appData = [System.Environment]::GetFolderPath('ApplicationData')
       $vsCodeSettingsTarget = Join-Path $appData "Code\User\settings.json"
-      File "RemoveUncontrolledFile"
+      File RemoveUncontrolledVSCodeSettings
       {
           Ensure = 'Absent'
           DestinationPath = $vsCodeSettingsTarget
       }
       cSymbolicLink VSCodeSettings
       {
-          SourcePath = $vsCodeSettingsTarget
-          DestinationPath = $vsCodeSettings
+          DestinationPath = $vsCodeSettingsTarget
+          SourcePath = $vsCodeSettings
+          Ensure = "Present"
+      }
+    }
+
+    $sshDirectory = Join-Path $env:USERPROFILE '.ssh\'
+    $dropBoxSSHFolder = Join-Path $env:USERPROFILE 'Dropbox (Personal)\SSH\'
+
+    File RemoveUncontrolledSSHDirectory
+    {
+        Ensure = 'Absent'
+        DestinationPath = $sshDirectory
+    }
+
+    cSymbolicLink SSHFolder
+    {
+        DestinationPath = $sshDirectory
+        SourcePath = $dropBoxSSHFolder
+        Ensure = "Present"
+    }
+
+    if ($conEmuSettings.ToLowerInvariant().StartsWith("c:")) {
+      $appData = [System.Environment]::GetFolderPath('ApplicationData')
+      $conEmuSettingsTarget = Join-Path $appData "ConEmu.xml"
+      File RemoveUncontrolledConEmuSettings
+      {
+          Ensure = 'Absent'
+          DestinationPath = $conEmuSettingsTarget
+      }
+      cSymbolicLink ConEmuSettings
+      {
+          DestinationPath = $conEmuSettingsTarget
+          SourcePath = $conEmuSettings
           Ensure = "Present"
       }
     }
