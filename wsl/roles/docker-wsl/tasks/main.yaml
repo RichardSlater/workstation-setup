@@ -1,0 +1,65 @@
+---
+
+# this is specific to using Docker on WSL as per:
+# https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
+
+- name: Register OS Distribution ID
+  command: lsb_release -is
+  register: distro
+
+- name: Register OS Codename
+  command: lsb_release -cs
+  register: codename
+
+- name: Install list of packages
+  apt:
+    name: [apt-transport-https, ca-certificates, curl, software-properties-common, python, python-pip]
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
+
+- name: Add an Apt signing key from Docker
+  apt_key:
+    url: https://download.docker.com/linux/{{ distro.stdout|lower }}/gpg
+    state: present
+
+- name: Add Apt repository for Docker
+  apt_repository:
+    repo: deb https://download.docker.com/linux/{{ distro.stdout|lower }} {{ codename.stdout }} stable
+    state: present
+
+- name: update apt repositories
+  apt:
+    update_cache: yes
+    upgrade: safe
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
+
+- name: Install docker-cli
+  apt:
+    name: [docker-ce-cli, containerd.io]
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
+
+- name: Make sure we have a 'docker' group
+  group:
+    name: docker
+    state: present
+
+- name: Add users to docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: "{{ docker_users }}"
+
+- name: Installing docker-compose
+  pip:
+    name: docker-compose

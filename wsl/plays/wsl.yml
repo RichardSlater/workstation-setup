@@ -57,10 +57,6 @@
     pip:
       name: ansible-lint
 
-  - name: Installing Powerline Shell
-    pip:
-      name: powerline-shell
-
   roles:
     - bash
     - terraform
@@ -68,3 +64,4 @@
     - ssh
     - powerline-shell
     - powerline
+    - docker-wsl

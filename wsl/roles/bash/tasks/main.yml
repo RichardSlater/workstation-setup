@@ -1,5 +1,5 @@
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.bashrc
+    src: /c/source/richardslater/bash-profile/.bashrc
     dest: /home/richardslater/.bashrc
     owner: richardslater
     group: richardslater
@@ -8,7 +8,7 @@
     mode: 0700
 
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.bash_aliases
+    src: /c/source/richardslater/bash-profile/.bash_aliases
     dest: /home/richardslater/.bash_aliases
     owner: richardslater
     group: richardslater
@@ -17,7 +17,7 @@
     mode: 0700
 
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.bash_logout
+    src: /c/source/richardslater/bash-profile/.bash_logout
     dest: /home/richardslater/.bash_logout
     owner: richardslater
     group: richardslater
@@ -26,7 +26,7 @@
     mode: 0700
 
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.bash_ssh
+    src: /c/source/richardslater/bash-profile/.bash_ssh
     dest: /home/richardslater/.bash_ssh
     owner: richardslater
     group: richardslater
@@ -35,7 +35,7 @@
     mode: 0700
 
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.profile
+    src: /c/source/richardslater/bash-profile/.profile
     dest: /home/richardslater/.profile
     owner: richardslater
     group: richardslater
@@ -44,7 +44,7 @@
     mode: 0700
 
 - file:
-    src: /mnt/c/source/richardslater/bash-profile/.vimrc
+    src: /c/source/richardslater/bash-profile/.vimrc
     dest: /home/richardslater/.vimrc
     owner: richardslater
     group: richardslater
