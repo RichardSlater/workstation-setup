@@ -42,3 +42,12 @@
     state: link
     force: yes
     mode: 0700
+
+- file:
+    src: /mnt/c/source/richardslater/bash-profile/.vimrc
+    dest: /home/richardslater/.vimrc
+    owner: richardslater
+    group: richardslater
+    state: link
+    force: yes
+    mode: 0700

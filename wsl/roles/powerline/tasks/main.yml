@@ -1,0 +1,14 @@
+---
+
+- name: Install list of packages
+  apt:
+    name: [python, python-pip]
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
+
+- name: Installing Powerline
+  pip:
+    name: git+git://github.com/Lokaltog/powerline
