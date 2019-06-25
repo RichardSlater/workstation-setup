@@ -1,5 +1,6 @@
 {
   "segments": [
+    "set_term_title",
     "time",
     "username",
     "hostname",
