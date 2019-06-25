@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2019-06-05 20:25:13" build="190526">
+		<key name=".Vanilla" modified="2019-06-25 15:56:51" build="190623">
 			<value name="Language" type="string" data="en"/>
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
@@ -83,9 +83,9 @@
 			<value name="JumpListAutoUpdate" type="hex" data="01"/>
 			<value name="SaveCmdHistory" type="hex" data="01"/>
 			<value name="CmdLineHistory" type="multi">
+				<line data="{Bash::bash}"/>
 				<line data="{Shells::PowerShell (Admin)}"/>
 				<line data="{Shells::PowerShell}"/>
-				<line data="{Bash::bash}"/>
 			</value>
 			<value name="SingleInstance" type="hex" data="00"/>
 			<value name="ShowHelpTooltips" type="hex" data="01"/>
@@ -109,7 +109,7 @@
 			<value name="Multi.SplitWidth" type="hex" data="04"/>
 			<value name="Multi.SplitHeight" type="hex" data="04"/>
 			<value name="KeyboardHooks" type="hex" data="01"/>
-			<value name="FontName" type="string" data="Fira Mono for Powerline"/>
+			<value name="FontName" type="string" data="Fira Code"/>
 			<value name="FontName2" type="string" data="Fixedsys"/>
 			<value name="FontAutoSize" type="hex" data="00"/>
 			<value name="FontSize" type="ulong" data="16"/>

@@ -55,6 +55,7 @@ $PackagesToInstall = @(
   "intellijidea-ultimate"
   "groovy"
   "eclipse"
+  "maven"
   "stardock-fences"
 )
 
