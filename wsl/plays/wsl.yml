@@ -67,4 +67,3 @@
     - wheel
     - ssh
     - powerline-shell
-#    - docker # disabled for now, as currently dosn't work with recent versions of Moby/Docker-CE
