@@ -1,4 +1,5 @@
 {
     "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "explorer.confirmDelete": false
 }
