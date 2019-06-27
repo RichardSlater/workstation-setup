@@ -13,6 +13,7 @@ apt install software-properties-common
 apt-add-repository --yes --update ppa:ansible/ansible
 apt install ansible
 
-chown -R $USER:$USER $DIR
+chown -R $SUDO_USER:$SUDO_USER $DIR
 find $DIR -type d -exec chmod 0755 {} \;
 find $DIR -type f -exec chmod 0644 {} \;
+chmod 0744 $DIR/bootstrap.sh

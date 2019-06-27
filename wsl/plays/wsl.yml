@@ -65,3 +65,4 @@
     - powerline-shell
     - powerline
     - docker-wsl
+    - andrewrothstein.kubectl
