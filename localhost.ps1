@@ -38,7 +38,6 @@ $PackagesToInstall = @(
   "audacity-ffmpeg"
   "openshot"
   "blender"
-  "utorrent"
   "grammarly"
   "franz"
   "zoom"
