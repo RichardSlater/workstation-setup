@@ -14,5 +14,11 @@
     "terraform.languageServer": {
         "enabled": true,
         "args": []
-    }
+    },
+    "cSpell.userWords": [
+        "Amido's",
+        "Kubernetes",
+        "amido"
+    ],
+    "team.showWelcomeMessage": false
 }
