@@ -47,6 +47,8 @@ $PackagesToInstall = @(
   "jdk8"
   "stardock-fences"
   "androidstudio"
+  "vagrant"
+  "obs-studio"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
