@@ -18,7 +18,7 @@ $PackagesToInstall = @(
   "sysinternals"
   "ruby"
   "nodejs.install"
-  "python2"
+  "python"
   "golang"
   "gpg4win"
   "inkscape"
