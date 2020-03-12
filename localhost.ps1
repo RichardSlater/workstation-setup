@@ -49,6 +49,7 @@ $PackagesToInstall = @(
   "androidstudio"
   "vagrant"
   "obs-studio"
+  "dotnetcore-sdk"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"
