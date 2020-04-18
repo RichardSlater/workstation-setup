@@ -18,7 +18,40 @@
     "cSpell.userWords": [
         "Amido's",
         "Kubernetes",
-        "amido"
+        "Sanitise",
+        "Sanitiser",
+        "Sanitisers",
+        "Sanitising",
+        "Xunit",
+        "amido",
+        "chmod",
+        "coronavirus",
+        "covid",
+        "hrex",
+        "hsmi",
+        "jira",
+        "jsdelivr",
+        "msecnd",
+        "qnamaker",
+        "todouble"
     ],
-    "team.showWelcomeMessage": false
+    "team.showWelcomeMessage": false,
+    "[terraform]": {},
+    "dotnet-test-explorer.testProjectPath": "tests\\jobs\\WebJobs.Tests\\WebJobs.Tests.csproj",
+    "omnisharp.enableEditorConfigSupport": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "csharpextensions.privateMemberPrefix": "_",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "coverage-gutters.coverageReportFileName": "**\\TestResults",
+    "coverage-gutters.coverageFileNames": [
+        "coverage.info",
+        "lcov.info",
+        "cov.xml",
+        "coverage.xml",
+        "jacoco.xml"
+    ]
 }

@@ -40,7 +40,6 @@ $PackagesToInstall = @(
   "blender"
   "grammarly"
   "franz"
-  "zoom"
   "evernote"
   "slack"
   "docker-desktop"
