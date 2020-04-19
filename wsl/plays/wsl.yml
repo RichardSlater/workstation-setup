@@ -4,58 +4,58 @@
   connection: local
   become: yes
   vars:
-    terraform_version: "0.12.23"
+    terraform_version: "0.12.24"
     sudoers:
       - richardslater
     docker_users:
       - richardslater
 
   pre_tasks:
-  - name: Verify Ansible meets minimum version requirements.
-    assert:
-      that: "ansible_version.full is version_compare('2.7', '>=')"
-      msg: >
-        "You must update Ansible to at least 2.7 to use this playbook."
+    - name: Verify Ansible meets minimum version requirements.
+      assert:
+        that: "ansible_version.full is version_compare('2.7', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.7 to use this playbook."
 
   tasks:
-  - name: check if aptitude is installed
-    shell: dpkg-query -W -f='${Status}' aptitude | grep 'install ok installed'
-    register: aptitude_installed
-    failed_when: no
-    changed_when: no
+    - name: check if aptitude is installed
+      shell: dpkg-query -W -f='${Status}' aptitude | grep 'install ok installed'
+      register: aptitude_installed
+      failed_when: no
+      changed_when: no
 
-  - name: ensure aptitude is installed
-    command: apt-get -y install aptitude warn=False
-    when: aptitude_installed is success
+    - name: ensure aptitude is installed
+      command: apt-get -y install aptitude warn=False
+      when: aptitude_installed is success
 
-  - name: update apt
-    apt:
-      update_cache: yes
-      upgrade: safe
-    register: task_result
-    until: task_result is success
-    retries: 3
-    delay: 10
+    - name: update apt
+      apt:
+        update_cache: yes
+        upgrade: safe
+      register: task_result
+      until: task_result is success
+      retries: 3
+      delay: 10
 
-  - name: upgrade packages
-    apt: upgrade=yes
-    register: task_result
-    until: task_result is success
-    retries: 3
-    delay: 10
+    - name: upgrade packages
+      apt: upgrade=yes
+      register: task_result
+      until: task_result is success
+      retries: 3
+      delay: 10
 
-  - name: Install list of packages
-    apt:
-      name: [python, jq, vim, curl, unzip, dnsutils, whois, sshpass, git]
-      state: present
-    register: task_result
-    until: task_result is success
-    retries: 3
-    delay: 10
+    - name: Install list of packages
+      apt:
+        name: [python, jq, vim, curl, unzip, dnsutils, whois, sshpass, git]
+        state: present
+      register: task_result
+      until: task_result is success
+      retries: 3
+      delay: 10
 
-  - name: Installing Ansible Linting Package
-    pip:
-      name: ansible-lint
+    - name: Installing Ansible Linting Package
+      pip:
+        name: ansible-lint
 
   roles:
     - bash
