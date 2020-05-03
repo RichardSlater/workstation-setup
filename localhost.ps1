@@ -43,12 +43,13 @@ $PackagesToInstall = @(
   "evernote"
   "slack"
   "docker-desktop"
-  "jdk8"
   "stardock-fences"
   "androidstudio"
   "vagrant"
   "obs-studio"
   "dotnetcore-sdk"
+  "openjdk"
+  "jmeter"
 )
 
 $gpgBinRoot = "C:\Program Files\Git\usr\bin\"

@@ -17,6 +17,7 @@
     },
     "cSpell.userWords": [
         "Amido's",
+        "Initialise",
         "Kubernetes",
         "Sanitise",
         "Sanitiser",
@@ -25,23 +26,26 @@
         "Xunit",
         "amido",
         "chmod",
+        "cobertura",
         "coronavirus",
         "covid",
         "detokenise",
+        "globaltool",
         "hrex",
         "hsmi",
         "jira",
         "jsdelivr",
         "msecnd",
         "qnamaker",
+        "reportgenerator",
+        "targetdir",
         "todouble"
     ],
     "team.showWelcomeMessage": false,
     "[terraform]": {},
-    "dotnet-test-explorer.testProjectPath": "tests\\jobs\\WebJobs.Tests\\WebJobs.Tests.csproj",
+    "dotnet-test-explorer.testProjectPath": "tests\\unit\\Amido.QnABot.Tests\\Amido.QnABot.Tests.csproj",
     "omnisharp.enableEditorConfigSupport": true,
     "omnisharp.enableRoslynAnalyzers": true,
-    "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "csharpextensions.privateMemberPrefix": "_",
     "[json]": {
@@ -54,5 +58,9 @@
         "cov.xml",
         "coverage.xml",
         "jacoco.xml"
-    ]
+    ],
+    "window.zoomLevel": 0,
+    "files.associations": {
+        "*/build/pipelines/*.yml": "azure-pipelines"
+    }
 }
