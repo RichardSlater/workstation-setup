@@ -29,6 +29,7 @@
         "cobertura",
         "coronavirus",
         "covid",
+        "crossorigin",
         "detokenise",
         "globaltool",
         "hrex",
@@ -62,5 +63,8 @@
     "window.zoomLevel": 0,
     "files.associations": {
         "*/build/pipelines/*.yml": "azure-pipelines"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
