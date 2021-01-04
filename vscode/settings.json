@@ -80,5 +80,6 @@
     },
     "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "workbench.startupEditor": "newUntitledFile"
 }
